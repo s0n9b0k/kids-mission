@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#fff8ef"><title>출동! 미션 대작전</title>
+<style>
+:root{--ink:#453b35;--muted:#95877d;--cream:#fff8ef;--pink:#ffb8b2;--yellow:#ffe39a;--mint:#bce8d8;--line:#f0e3d6;--white:#fff}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#fff8ef,#fffdf9 55%);color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans KR",sans-serif}
+.wrap{max-width:520px;margin:auto;padding:18px 16px 36px}.hero{background:#fff;border:1px solid var(--line);border-radius:26px;padding:20px 18px;text-align:center;box-shadow:0 8px 24px #8c6b4b0d}
+.kicker{font-size:12px;letter-spacing:2px;color:#b38b76;font-weight:800}.hero h1{font-size:25px;margin:7px 0 5px;line-height:1.25}.hero p{margin:0;color:var(--muted);font-size:13px}.ball{font-size:32px;margin:8px auto 3px}
+.reward{margin-top:14px;background:#fff3d8;border-radius:15px;padding:11px;font-size:13px}.reward b{color:#a76c35}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:17px 0 13px}.day{border:1px solid var(--line);background:#fff;border-radius:13px;padding:10px 0 8px;color:var(--muted);font-weight:700;font-size:12px}.day strong{display:block;font-size:15px;color:var(--ink);margin-bottom:3px}.day.active{background:#ffe6df;border-color:#ffc2b7;color:#a55b51}.day.active strong{color:#a55b51}.day.locked{opacity:.65}
+.panel{background:#fff;border:1px solid var(--line);border-radius:22px;padding:17px;margin:12px 0;box-shadow:0 5px 18px #8c6b4b08}.panelhead{display:flex;align-items:center;justify-content:space-between;gap:8px}.panel h2{font-size:17px;margin:0}.sub{font-size:12px;color:var(--muted);margin-top:5px}
+.mission{display:flex;align-items:center;gap:11px;padding:13px 0;border-bottom:1px solid #f5eee7}.mission:last-child{border:0;padding-bottom:2px}.tick{width:27px;height:27px;border-radius:9px;border:2px solid #e8d8c9;background:#fff;display:grid;place-items:center;flex-shrink:0;color:#fff;font-weight:900}.tick.done{background:#82cbb2;border-color:#82cbb2}.mtext{flex:1;font-size:14px;font-weight:650}.mtext.done{text-decoration:line-through;color:#a99d94}.steps{display:flex;gap:5px}.step{width:30px;height:30px;border-radius:9px;border:1px solid #eadfd5;background:#fffaf5;color:#8f796b;font-size:12px;font-weight:800}.step.on{background:#ffe39a;border-color:#f4ce6c;color:#76582c}
+.stamphead{display:flex;justify-content:space-between;align-items:center}.count{font-size:13px;color:#a87958;font-weight:800}.progress{height:9px;background:#f5ece3;border-radius:99px;overflow:hidden;margin:12px 0 14px}.bar{height:100%;background:linear-gradient(90deg,#ffb8b2,#f5d27c);width:0%;border-radius:99px;transition:width .2s}
+.grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}.cell{aspect-ratio:1;border:1.5px dashed #ead9ca;border-radius:15px;background:#fffcf8;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-width:0}.cell .shape{font-size:23px;line-height:1}.cell small{font-size:10px;color:#aa9a8e}.cell.filled{background:#fff0dc;border:1.5px solid #f1cb8a}.cell.filled .shape{filter:drop-shadow(0 2px 1px #d6a45a55)}.cell.filled small{font-weight:800;color:#8d6844}
+.actions{display:flex;gap:8px;margin-top:14px}.btn{border:0;border-radius:13px;padding:12px 14px;font-weight:800;font-size:13px;background:#f4e9df;color:#715d50;flex:1}.btn.primary{background:#f5b8ad;color:#653f39}.btn:disabled{opacity:.45}
+.note{text-align:center;color:#a99b90;font-size:11px;line-height:1.5;margin:14px 8px}.mom{display:block;margin:14px auto 0;border:0;background:none;color:#a18f80;text-decoration:underline;font-size:12px;padding:8px}
+.overlay{position:fixed;inset:0;background:#33251f88;display:none;align-items:flex-end;justify-content:center;padding:12px;z-index:5}.overlay.show{display:flex}.sheet{width:min(520px,100%);max-height:90vh;overflow:auto;background:#fffdf9;border-radius:24px;padding:20px}.sheet h2{margin:0 0 12px}.field{margin:12px 0}.field label{display:block;font-size:12px;color:#8c796c;font-weight:800;margin-bottom:6px}.field input,.field textarea{width:100%;border:1px solid var(--line);border-radius:11px;padding:11px;font:inherit;color:var(--ink);background:#fff}.field textarea{min-height:58px;resize:vertical}.settingrow{display:flex;gap:8px}.settingrow>*{flex:1}.small{font-size:11px;color:#a18f80}.success{position:fixed;inset:0;background:#fff8efee;display:none;z-index:8;align-items:center;justify-content:center;text-align:center;padding:24px}.success.show{display:flex}.success .box{background:white;border-radius:28px;padding:30px 22px;border:1px solid var(--line);max-width:360px}.success .big{font-size:60px}.success h2{margin:8px 0}.success p{color:#8f7e72;font-size:14px}
+@media(max-width:360px){.wrap{padding:12px 11px}.grid{gap:6px}.cell{border-radius:12px}.cell .shape{font-size:20px}.day{font-size:11px}.day strong{font-size:14px}}
+</style></head>
+<body><main class="wrap">
+<section class="hero"><div class="kicker">TODAY'S CHALLENGE</div><div class="ball">⭐</div><h1 id="title">출동! 꼬마 대원의<br>미션 대작전</h1><p>하루하루 해내면 멋진 도장이 쌓여요!</p><div class="reward">🎁 <b>30개 달성 선물</b> · <span id="rewardText">원하는 선물 고르기</span></div></section>
+<nav class="week" id="week"></nav>
+<section class="panel"><div class="panelhead"><h2 id="missionTitle">오늘의 미션</h2><span id="todayLabel" class="count"></span></div><div class="sub" id="dayHint">하나씩 완료해 보자!</div><div id="missions"></div><div class="actions"><button class="btn primary" id="stampBtn">⭐ 오늘 도장 받기</button></div><div class="small" id="stampMsg" style="margin-top:9px;text-align:center"></div></section>
+<section class="panel"><div class="stamphead"><h2>🏅 30개 칭찬 스티커판</h2><span class="count" id="count">0 / 30</span></div><div class="progress"><div class="bar" id="bar"></div></div><div class="grid" id="grid"></div></section>
+<div class="note">칭찬은 매일 조금씩! 오늘도 정말 잘했어요 💛<br>기록은 이 기기의 브라우저에만 저장됩니다.</div><button class="mom" id="momBtn">⚙ 엄마 설정</button>
+</main>
+<div class="overlay" id="overlay"><div class="sheet"><div class="panelhead"><h2>⚙ 엄마 설정</h2><button class="btn" id="close">닫기</button></div><div id="auth"><p>엄마만 들어올 수 있어요. 간단한 덧셈을 풀어주세요.</p><h2 id="question"></h2><div class="settingrow"><input id="answer" inputmode="numeric" placeholder="정답"><button class="btn primary" id="unlock">확인</button></div></div><div id="settings" style="display:none">
+<div class="field"><label>페이지 제목</label><input id="editTitle"></div><div class="field"><label>30개 달성 선물</label><input id="editReward"></div>
+<div class="field"><label>요일별 미션 수정 (한 줄에 하나씩, 여러 번은 [3] 표시)</label><select id="editDay" style="width:100%;padding:10px;border:1px solid var(--line);border-radius:10px"></select><textarea id="editMissions"></textarea><button class="btn primary" id="saveDay" style="width:100%;margin-top:7px">요일 미션 저장</button></div>
+<div class="field"><label>도장 수 보충 / 조정</label><div class="settingrow"><button class="btn" id="minus">− 1개</button><button class="btn" id="plus">+ 1개</button></div></div>
+<div class="field"><label>데이터 백업 / 복원</label><div class="settingrow"><button class="btn" id="backup">백업 파일 받기</button><button class="btn" id="restoreBtn">백업 복원</button><input type="file" id="restoreFile" accept="application/json" hidden></div></div>
+<div class="field"><button class="btn" id="reset" style="width:100%;color:#a34d46">전체 초기화</button></div></div></div></div>
+<div class="success" id="success"><div class="box"><div class="big">🎉🏆🎉</div><h2>미션 대작전 성공!</h2><p>칭찬 도장 30개를 모두 모았어요!<br>약속한 선물을 받을 시간이에요 💛</p><button class="btn primary" id="successClose">닫기</button></div></div>
+<script>
+const defaults={
+ title:"출동! 꼬마 대원의 미션 대작전",reward:"원하는 선물 고르기",
+ days:[
+ ["책 읽기 [3]","한글/낱말 놀이","장난감 정리"],
+ ["책 읽기 [3]","숫자 놀이","내 물건 제자리"],
+ ["책 읽기 [3]","쓰기 연습","색칠 또는 만들기"],
+ ["책 읽기 [3]","수 놀이","장난감 정리"],
+ ["책 읽기 [3]","이번 주 배운 것 복습","가방 정리"],
+ ["가족과 책 읽기 [2]","즐거운 몸놀이"],
+ ["쉬는 날"]
+ ],stamps:[],checks:{},awarded:{}
+};
+const key="kidsMission30_v1";let data=load(),selected=new Date().getDay()===0?6:new Date().getDay()-1,unlocked=false,a=0,b=0;
+function load(){try{return {...defaults,...JSON.parse(localStorage.getItem(key)||"{}")}}catch(e){return structuredClone(defaults)}}
+function save(){localStorage.setItem(key,JSON.stringify(data))}
+const names=["월","화","수","목","금","토","일"];
+function today(){let d=new Date().getDay();return d===0?6:d-1}
+function items(day){return (data.days[day]||[]).map((s,i)=>{let m=s.match(/^(.*)\s\[(\d+)\]$/);return {name:m?m[1]:s,total:m?Math.max(1,+m[2]):1,id:day+"-"+i}})}
+function done(day,it){return (data.checks[it.id]||[]).length>=it.total}
+function render(){
+ document.getElementById("title").innerHTML=(data.title||defaults.title).replace("의 ","의<br>");document.getElementById("rewardText").textContent=data.reward;
+ let t=today();document.getElementById("week").innerHTML=names.map((n,i)=>`<button class="day ${selected===i?'active':''} ${i!==t?'locked':''}" data-day="${i}"><strong>${n}</strong>${i===t?'오늘':'미리보기'}</button>`).join("");
+ document.querySelectorAll("[data-day]").forEach(el=>el.onclick=()=>{selected=+el.dataset.day;render()});
+ document.getElementById("missionTitle").textContent=selected===t?"오늘의 미션":names[selected]+"요일 미리보기";
+ document.getElementById("todayLabel").textContent=names[selected]+"요일";document.getElementById("dayHint").textContent=selected===t?"하나씩 완료하고 오늘의 도장을 받아요!":"미리보기 모드예요. 오늘이 되면 체크할 수 있어요.";
+ let its=items(selected),can=selected===t;
+ document.getElementById("missions").innerHTML=its.map(it=>{let checks=data.checks[it.id]||[];return `<div class="mission"><button class="tick ${done(selected,it)?'done':''}" ${can?'':'disabled'} data-tick="${it.id}">${done(selected,it)?'✓':''}</button><div class="mtext ${done(selected,it)?'done':''}">${esc(it.name)}</div>${it.total>1?`<div class="steps">${Array.from({length:it.total},(_,n)=>`<button class="step ${checks.includes(n)?'on':''}" ${can?'':'disabled'} data-step="${it.id}:${n}">${n+1}</button>`).join("")}</div>`:''}</div>`}).join("")||'<p class="sub">오늘은 쉬어가는 날이에요 ☁️</p>';
+ document.querySelectorAll("[data-tick]").forEach(el=>el.onclick=()=>toggle(el.dataset.tick,selected));
+ document.querySelectorAll("[data-step]").forEach(el=>el.onclick=()=>{let [id,n]=el.dataset.step.split(":");let c=data.checks[id]||[];data.checks[id]=c.includes(+n)?c.filter(x=>x!==+n):[...c,+n];save();render()});
+ let awarded=!!data.awarded[dateKey()];let all=its.length>0&&its.every(it=>done(t,it));
+ let btn=document.getElementById("stampBtn");btn.disabled=!can||!all||awarded;btn.textContent=awarded?"✓ 오늘 도장 받았어요":all?"⭐ 오늘 도장 받기":"미션을 모두 완료해 주세요";
+ document.getElementById("stampMsg").textContent=awarded?"오늘의 도장은 이미 찍혔어요!":!can?"오늘 날짜의 미션만 도장을 받을 수 있어요":!all?"모든 미션을 체크하면 도장을 받을 수 있어요":"참 잘했어요! 도장을 찍어볼까요?";
+ document.getElementById("count").textContent=`${data.stamps.length} / 30`;document.getElementById("bar").style.width=Math.min(100,data.stamps.length/30*100)+"%";
+ document.getElementById("grid").innerHTML=Array.from({length:30},(_,i)=>{let s=data.stamps[i];return `<div class="cell ${s?'filled':''}"><span class="shape">${s?'⭐':'☆'}</span><small>${s?esc(s):String(i+1).padStart(2,"0")}</small></div>`}).join("");
+}
+function dateKey(){return new Date().toISOString().slice(0,10)}
+function toggle(id,day){if(day!==today())return;let c=data.checks[id]||[];let it=items(day).find(x=>x.id===id);data.checks[id]=done(day,it)?[]:Array.from({length:it.total},(_,i)=>i);save();render()}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+document.getElementById("stampBtn").onclick=()=>{if(data.awarded[dateKey()]||data.stamps.length>=30)return;data.stamps.push(new Date().toLocaleDateString("ko-KR",{month:"numeric",day:"numeric"}));data.awarded[dateKey()]=true;save();render();if(data.stamps.length===30)document.getElementById("success").classList.add("show")};
+document.getElementById("successClose").onclick=()=>document.getElementById("success").classList.remove("show");
+function question(){a=Math.floor(Math.random()*8)+1;b=Math.floor(Math.random()*9)+1;document.getElementById("question").textContent=`${a} + ${b} = ?`;document.getElementById("answer").value=""}
+document.getElementById("momBtn").onclick=()=>{unlocked=false;document.getElementById("auth").style.display="block";document.getElementById("settings").style.display="none";question();document.getElementById("overlay").classList.add("show")};
+document.getElementById("close").onclick=()=>document.getElementById("overlay").classList.remove("show");
+document.getElementById("unlock").onclick=()=>{if(+document.getElementById("answer").value===a+b){unlocked=true;document.getElementById("auth").style.display="none";document.getElementById("settings").style.display="block";openSettings()}else{alert("정답이 아니에요. 다시 풀어주세요!");question()}};
+function openSettings(){document.getElementById("editTitle").value=data.title;document.getElementById("editReward").value=data.reward;document.getElementById("editDay").innerHTML=names.map((n,i)=>`<option value="${i}">${n}요일</option>`).join("");loadDay()}
+function loadDay(){let d=+document.getElementById("editDay").value||0;document.getElementById("editMissions").value=(data.days[d]||[]).join("\n")}
+document.getElementById("editDay").onchange=loadDay;
+document.getElementById("saveDay").onclick=()=>{let d=+document.getElementById("editDay").value;data.days[d]=document.getElementById("editMissions").value.split("\n").map(s=>s.trim()).filter(Boolean);save();alert("요일 미션을 저장했어요!");render()};
+["editTitle","editReward"].forEach(id=>document.getElementById(id).onchange=()=>{data.title=document.getElementById("editTitle").value;data.reward=document.getElementById("editReward").value;save();render()});
+document.getElementById("plus").onclick=()=>{if(data.stamps.length<30)data.stamps.push("보충") ;save();render()};
+document.getElementById("minus").onclick=()=>{data.stamps.pop();save();render()};
+document.getElementById("backup").onclick=()=>{let blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"}),u=URL.createObjectURL(blob),a=document.createElement("a");a.href=u;a.download="미션대작전-백업.json";a.click();URL.revokeObjectURL(u)};
+document.getElementById("restoreBtn").onclick=()=>document.getElementById("restoreFile").click();
+document.getElementById("restoreFile").onchange=async e=>{try{let obj=JSON.parse(await e.target.files[0].text());if(!Array.isArray(obj.days)||!Array.isArray(obj.stamps))throw 0;data={...defaults,...obj};save();render();alert("복원했어요!")}catch(err){alert("올바른 백업 파일이 아니에요.")}};
+document.getElementById("reset").onclick=()=>{if(confirm("모든 미션 기록과 도장을 정말 초기화할까요?")){data=structuredClone(defaults);save();render();alert("초기화했어요.")}};
+if(!data.days||data.days.length!==7)data.days=structuredClone(defaults.days);if(!data.stamps)data.stamps=[];if(!data.checks)data.checks={};if(!data.awarded)data.awarded={};render();
+</script></body></html>
