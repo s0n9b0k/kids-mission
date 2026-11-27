@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#fff4e9"><title>출동! 포켓몬 트레이너 미션 대작전</title>
+<meta name="theme-color" content="#fff4e9"><title>출동! 포켓몬 트레이너 지환이의 미션 대작전</title>
 <style>
 :root{--ink:#342d2b;--muted:#8c817c;--cream:#fff4e9;--pink:#f05a50;--yellow:#ffd95e;--mint:#bce8d8;--line:#f0d9ca;--white:#fff}
 *{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#fff1e8,#fffaf5 55%);color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans KR",sans-serif}
@@ -20,7 +20,7 @@
 @media(max-width:360px){.wrap{padding:12px 11px}.grid{gap:6px}.cell{border-radius:12px}.cell .shape{width:25px;height:25px}.day{font-size:11px}.day strong{font-size:14px}}
 </style></head>
 <body><main class="wrap">
-<section class="hero"><div class="kicker">POKÉMON TRAINER QUEST</div><div class="ball" aria-label="몬스터볼"></div><h1 id="title">출동! 포켓몬 트레이너의<br>미션 대작전</h1><p>매일 미션을 완료하고 몬스터볼을 모아요!</p><div class="reward">🏆 <b>몬스터볼 30개 달성 선물</b> · <span id="rewardText">다이소에서 원하는 장난감 고르기</span></div></section>
+<section class="hero"><div class="kicker">POKÉMON TRAINER QUEST</div><div class="ball" aria-label="몬스터볼"></div><h1 id="title">출동! 포켓몬 트레이너 지환이의<br>미션 대작전</h1><p>매일 미션을 완료하고 몬스터볼을 모아요!</p><div class="reward">🏆 <b>몬스터볼 30개 달성 선물</b> · <span id="rewardText">다이소에서 원하는 장난감 고르기</span></div></section>
 <nav class="week" id="week"></nav>
 <section class="panel"><div class="panelhead"><h2 id="missionTitle">오늘의 미션</h2><span id="todayLabel" class="count"></span></div><div class="sub" id="dayHint">하나씩 완료해 보자!</div><div id="missions"></div><div class="actions"><button class="btn primary" id="stampBtn">🔴 오늘의 몬스터볼 받기</button></div><div class="small" id="stampMsg" style="margin-top:9px;text-align:center"></div></section>
 <section class="panel"><div class="stamphead"><h2>📕 몬스터볼 수집 도감</h2><span class="count" id="count">0 / 30</span></div><div class="progress"><div class="bar" id="bar"></div></div><div class="grid" id="grid"></div></section>
@@ -35,19 +35,19 @@
 <div class="success" id="success"><div class="box"><div class="big">🏆🔴⚪🏆</div><h2>포켓몬 챔피언 등극!</h2><p>몬스터볼 30개를 모두 모았어요!<br>약속한 선물을 받을 시간이에요 ❤️</p><button class="btn primary" id="successClose">닫기</button></div></div>
 <script>
 const defaults={
- title:"출동! 포켓몬 트레이너의 미션 대작전",reward:"다이소에서 원하는 장난감 고르기",
+ title:"출동! 포켓몬 트레이너 지환이의 미션 대작전",reward:"다이소에서 원하는 장난감 고르기",
  days:[
- ["책 읽기 [3]","한글/낱말 놀이","장난감 정리"],
- ["책 읽기 [3]","숫자 놀이","내 물건 제자리"],
- ["책 읽기 [3]","쓰기 연습","색칠 또는 만들기"],
- ["책 읽기 [3]","수 놀이","장난감 정리"],
- ["책 읽기 [3]","이번 주 배운 것 복습","가방 정리"],
- ["가족과 책 읽기 [2]","즐거운 몸놀이"],
- ["쉬는 날"]
- ],stamps:[],checks:{},awarded:{}
+ ["토도원 영어","영어책 읽기","한글책 읽기","소마셈 1쪽","도형 1쪽","팩토 1쪽","슈퍼파닉스 한글 1쪽","포켓몬 한글 1쪽","한자 1쪽","장난감 정리","내일 준비물 챙기기"],
+ ["토도원 영어","영어책 읽기","한글책 읽기","소마셈 1쪽","도형 1쪽","팩토 1쪽","슈퍼파닉스 한글 1쪽","포켓몬 한글 1쪽","한자 1쪽","장난감 정리","내일 준비물 챙기기"],
+ ["토도원 영어","영어책 읽기","한글책 읽기","소마셈 1쪽","도형 1쪽","팩토 1쪽","슈퍼파닉스 한글 1쪽","포켓몬 한글 1쪽","한자 1쪽","장난감 정리","내일 준비물 챙기기"],
+ ["토도원 영어","영어책 읽기","한글책 읽기","수학학원 + 오르다 보드게임","슈퍼파닉스 한글 1쪽","포켓몬 한글 1쪽","한자 1쪽","장난감 정리","내일 준비물 챙기기"],
+ ["토도원 영어","영어책 읽기","한글책 읽기","소마셈 1쪽","도형 1쪽","팩토 1쪽","슈퍼파닉스 한글 1쪽","포켓몬 한글 1쪽","한자 1쪽","장난감 정리","내일 준비물 챙기기"],
+ ["토도원 영어","책 읽기 [5]","유치원 숙제"],
+ ["토도원 영어","책 읽기 [5]","유치원 숙제"]
+ ],stamps:[],checks:{},awarded:{},scheduleVersion:2
 };
 const key="kidsMission30_v1";let data=load(),selected=new Date().getDay()===0?6:new Date().getDay()-1,unlocked=false,a=0,b=0;
-function load(){try{return {...defaults,...JSON.parse(localStorage.getItem(key)||"{}")}}catch(e){return structuredClone(defaults)}}
+function load(){try{let saved=JSON.parse(localStorage.getItem(key)||"{}");let merged={...defaults,...saved};if(merged.scheduleVersion!==2){merged.days=structuredClone(defaults.days);merged.checks={};merged.scheduleVersion=2;}return merged}catch(e){return structuredClone(defaults)}}
 function save(){localStorage.setItem(key,JSON.stringify(data))}
 const names=["월","화","수","목","금","토","일"];
 function today(){let d=new Date().getDay();return d===0?6:d-1}
